@@ -1,0 +1,313 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="LM0rSeYv2IzhvhBtbwbS">
+    <mxGraphModel dx="2735" dy="1053" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-1" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="Super&lt;div&gt;DB&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="60" x="290" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-4" edge="1" parent="1" source="tuWzIUHQ4Kq_duCUAKOV-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="tuWzIUHQ4Kq_duCUAKOV-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-13" edge="1" parent="1" source="tuWzIUHQ4Kq_duCUAKOV-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="tuWzIUHQ4Kq_duCUAKOV-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Backend" vertex="1">
+          <mxGeometry height="60" width="120" x="330" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-8" edge="1" parent="1" source="tuWzIUHQ4Kq_duCUAKOV-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="tuWzIUHQ4Kq_duCUAKOV-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Application" vertex="1">
+          <mxGeometry height="60" width="120" x="90" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-9" edge="1" parent="1" source="tuWzIUHQ4Kq_duCUAKOV-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="tuWzIUHQ4Kq_duCUAKOV-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Web" vertex="1">
+          <mxGeometry height="60" width="120" x="330" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-10" edge="1" parent="1" source="tuWzIUHQ4Kq_duCUAKOV-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="tuWzIUHQ4Kq_duCUAKOV-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Tele (bot)" vertex="1">
+          <mxGeometry height="60" width="120" x="570" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-11" parent="1" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://icons.diagrams.net/icon-cache1/Unicons_Line_vol_6-2968/telegram-1002.svg" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="666" y="146" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-12" parent="1" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.s3;fillColor=#E05243;gradientColor=none;" value="S3" vertex="1">
+          <mxGeometry height="70" width="57.58" x="450" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-14" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Organizer" vertex="1">
+          <mxGeometry height="60" width="30" x="-20" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-15" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Player" vertex="1">
+          <mxGeometry height="60" width="30" x="310" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-21" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Organizer Function" vertex="1">
+          <mxGeometry height="270" width="210" x="-270" y="555" as="geometry">
+            <mxRectangle height="30" width="140" x="285" y="830" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-22" parent="tuWzIUHQ4Kq_duCUAKOV-21" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Create Games" vertex="1">
+          <mxGeometry height="30" width="210" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-23" parent="tuWzIUHQ4Kq_duCUAKOV-21" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Cancel Games" vertex="1">
+          <mxGeometry height="30" width="210" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-24" parent="tuWzIUHQ4Kq_duCUAKOV-21" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Remove Player From Game (Unpaid) - DONE&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="210" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-27" parent="tuWzIUHQ4Kq_duCUAKOV-21" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Edit Game (Desc, Policy, Thingtobring)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="210" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-33" parent="tuWzIUHQ4Kq_duCUAKOV-21" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Message Player&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="210" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-34" parent="tuWzIUHQ4Kq_duCUAKOV-21" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Approve Payment&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="210" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-43" parent="tuWzIUHQ4Kq_duCUAKOV-21" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Remove or Remove with refund (Full refund - Paid)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="210" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-59" parent="tuWzIUHQ4Kq_duCUAKOV-21" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Cash Out Function&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="210" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-28" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Player Function" vertex="1">
+          <mxGeometry height="180" width="210" x="240" y="600" as="geometry">
+            <mxRectangle height="30" width="140" x="285" y="830" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-29" parent="tuWzIUHQ4Kq_duCUAKOV-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Join Games" vertex="1">
+          <mxGeometry height="30" width="210" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-35" parent="tuWzIUHQ4Kq_duCUAKOV-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Message to Organizer (while Booked)" vertex="1">
+          <mxGeometry height="30" width="210" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-36" parent="tuWzIUHQ4Kq_duCUAKOV-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Leave the games which already joined" vertex="1">
+          <mxGeometry height="30" width="210" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-37" parent="tuWzIUHQ4Kq_duCUAKOV-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Upload payment screenshot" vertex="1">
+          <mxGeometry height="30" width="210" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-56" parent="tuWzIUHQ4Kq_duCUAKOV-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Useful FAQ for player (Eg - Refund Request)" vertex="1">
+          <mxGeometry height="30" width="210" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-38" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Pay in App or Manual&lt;div&gt;(create booking)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="618" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-39" edge="1" parent="1" source="tuWzIUHQ4Kq_duCUAKOV-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="tuWzIUHQ4Kq_duCUAKOV-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-40" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Provide reason to leave" vertex="1">
+          <mxGeometry height="60" width="120" x="618" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-42" edge="1" parent="1" source="tuWzIUHQ4Kq_duCUAKOV-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="tuWzIUHQ4Kq_duCUAKOV-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-45" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Both P &amp;amp; O" vertex="1">
+          <mxGeometry height="60" width="30" x="20" y="1110" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-46" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Community Function" vertex="1">
+          <mxGeometry height="180" width="140" x="85" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-47" parent="tuWzIUHQ4Kq_duCUAKOV-46" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Create Community" vertex="1">
+          <mxGeometry height="30" width="140" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-48" parent="tuWzIUHQ4Kq_duCUAKOV-46" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Remove Community" vertex="1">
+          <mxGeometry height="30" width="140" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-50" parent="tuWzIUHQ4Kq_duCUAKOV-46" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Invite Member" vertex="1">
+          <mxGeometry height="30" width="140" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-51" parent="tuWzIUHQ4Kq_duCUAKOV-46" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Remove member" vertex="1">
+          <mxGeometry height="30" width="140" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-53" parent="tuWzIUHQ4Kq_duCUAKOV-46" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Edit Description (TBD)" vertex="1">
+          <mxGeometry height="30" width="140" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-57" edge="1" parent="1" source="tuWzIUHQ4Kq_duCUAKOV-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="tuWzIUHQ4Kq_duCUAKOV-43">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-60" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Wallet Funciton" vertex="1">
+          <mxGeometry height="150" width="220" x="-570" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-61" parent="tuWzIUHQ4Kq_duCUAKOV-60" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Cash out (allow earning only) - admin" vertex="1">
+          <mxGeometry height="30" width="220" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-62" parent="tuWzIUHQ4Kq_duCUAKOV-60" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Topup&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="220" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-63" parent="tuWzIUHQ4Kq_duCUAKOV-60" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Refund" vertex="1">
+          <mxGeometry height="30" width="220" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-66" parent="tuWzIUHQ4Kq_duCUAKOV-60" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Earning Widget in flutter" vertex="1">
+          <mxGeometry height="30" width="220" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-64" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="If manual payment,&amp;nbsp;&lt;div&gt;add paynow number&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;verify the number first when add paynow&lt;/div&gt;" vertex="1">
+          <mxGeometry height="115" width="120" x="10" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="tuWzIUHQ4Kq_duCUAKOV-65" edge="1" parent="1" source="tuWzIUHQ4Kq_duCUAKOV-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="tuWzIUHQ4Kq_duCUAKOV-64">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Refund Request Flow (implemented)" id="refund-flow">
+    <mxGraphModel dx="1024" dy="768" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1240" pageHeight="1400" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="rf0" />
+        <mxCell id="rf1" parent="rf0" />
+        <mxCell id="rf-title" value="Player Cancel &amp; Organizer-Decided Refund Flow" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontStyle=1" vertex="1" parent="rf1">
+          <mxGeometry x="40" y="10" width="760" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-sub" value="feature/earning_wallet_screen — bookings, wallet escrow, refund requests" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666" vertex="1" parent="rf1">
+          <mxGeometry x="40" y="38" width="760" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-start" value="Player taps&#10;CANCEL BOOKING&#10;(My Games)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="rf1">
+          <mxGeometry x="315" y="70" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-dStarted" value="Game already started?&#10;(now &amp;ge; start_datetime)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656" vertex="1" parent="rf1">
+          <mxGeometry x="320" y="160" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-blocked" value="BLOCKED&#10;CANCELLATION_WINDOW_CLOSED (409)&#10;Self-cancel only allowed before start" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="rf1">
+          <mxGeometry x="640" y="170" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-dWallet" value="Wallet-paid (in-app)?&#10;payment_status=paid&#10;and method &amp;ne; offline" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656" vertex="1" parent="rf1">
+          <mxGeometry x="320" y="300" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-offline" value="OFFLINE / FREE booking&#10;Free the seat • reverse points&#10;Claw back organizer escrow earning&#10;status=cancelled • refund_status=none" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6" vertex="1" parent="rf1">
+          <mxGeometry x="20" y="305" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-offlineEnd" value="Done — no in-app&#10;money moved" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366" vertex="1" parent="rf1">
+          <mxGeometry x="60" y="430" width="180" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-reason" value="Player writes a REASON&#10;DELETE /bookings/:bookingId  { reason }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf" vertex="1" parent="rf1">
+          <mxGeometry x="290" y="450" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-cancelSvc" value="cancelBooking (service)&#10;Free seat • reverse points • status=cancelled&#10;refund_status = PENDING&#10;Earning STAYS in pending_earnings (escrow)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6" vertex="1" parent="rf1">
+          <mxGeometry x="270" y="540" width="320" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-notifyOrg" value="Notify organizer&#10;&#34;Refund requested&#34; + reason" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6" vertex="1" parent="rf1">
+          <mxGeometry x="300" y="660" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-managePage" value="Manage page (organizer)&#10;Amber &#34;REFUND REQUESTED&#34; footer&#10;shows reason + DECIDE button" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00" vertex="1" parent="rf1">
+          <mxGeometry x="300" y="740" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-dialog" value="RefundDecisionDialog&#10;No refund  /  Full  /  Custom amount&#10;POST /games/:id/bookings/:id/refund-decision&#10;{ refundAmount, note? }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00" vertex="1" parent="rf1">
+          <mxGeometry x="290" y="840" width="280" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-rpc" value="fn_resolve_refund_request  (atomic, SECURITY DEFINER)&#10;&#10;• Refund player wallet  + R  (spendable balance)&#10;• Reverse original earning out of pending_earnings&#10;• Organizer KEEPS (total − R) as matured cashable earning&#10;• Stamp booking: approved / denied&#10;  → refunded / partial_refund / no_refund" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=12;fillColor=#d5e8d4;strokeColor=#82b366" vertex="1" parent="rf1">
+          <mxGeometry x="230" y="970" width="400" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-notifyPlayer" value="Notify player&#10;wallet_refund (approved)  /  refund_declined (denied)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366" vertex="1" parent="rf1">
+          <mxGeometry x="280" y="1170" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-end" value="Resolved" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="rf1">
+          <mxGeometry x="335" y="1260" width="190" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-cron" value="CRON — every 15 min (app.js)&#10;runs BEFORE earnings settlement" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088" vertex="1" parent="rf1">
+          <mxGeometry x="700" y="540" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-cronFn" value="fn_auto_approve_expired_refunds&#10;(grace_hours — admin_config, default 24)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088" vertex="1" parent="rf1">
+          <mxGeometry x="700" y="630" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-dCron" value="Pending request AND&#10;game ended &amp;gt; grace?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656" vertex="1" parent="rf1">
+          <mxGeometry x="710" y="720" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-cronSkip" value="Skip — re-check&#10;next run" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999" vertex="1" parent="rf1">
+          <mxGeometry x="990" y="745" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-invariant" value="INVARIANT&#10;A PENDING request's earning is never cashable.&#10;Earnings settlement matures only status=&#39;confirmed&#39;&#10;bookings; the auto-approve sweep runs BEFORE&#10;settlement, so these earnings are reversed, not matured." style="shape=note;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=10;verticalAlign=top;size=18" vertex="1" parent="rf1">
+          <mxGeometry x="680" y="980" width="370" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-legendBox" value="LEGEND" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#999999;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontStyle=1;dashed=1" vertex="1" parent="rf1">
+          <mxGeometry x="40" y="1150" width="230" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-lgP" value="" style="rounded=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="rf1">
+          <mxGeometry x="56" y="1184" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-lgPt" value="Player action / UI" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="rf1">
+          <mxGeometry x="82" y="1184" width="170" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-lgB" value="" style="rounded=0;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="rf1">
+          <mxGeometry x="56" y="1210" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-lgBt" value="Backend service / API" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="rf1">
+          <mxGeometry x="82" y="1210" width="170" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-lgD" value="" style="rounded=0;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="rf1">
+          <mxGeometry x="56" y="1236" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-lgDt" value="Database RPC / money move" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="rf1">
+          <mxGeometry x="82" y="1236" width="190" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-lgO" value="" style="rounded=0;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="rf1">
+          <mxGeometry x="56" y="1262" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-lgOt" value="Organizer action / UI" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="rf1">
+          <mxGeometry x="82" y="1262" width="170" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-lgC" value="" style="rounded=0;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" vertex="1" parent="rf1">
+          <mxGeometry x="56" y="1288" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-lgCt" value="Scheduled cron job" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="rf1">
+          <mxGeometry x="82" y="1288" width="170" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="rf1" source="rf-start" target="rf-dStarted">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e2" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontStyle=1" edge="1" parent="rf1" source="rf-dStarted" target="rf-blocked">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e3" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontStyle=1" edge="1" parent="rf1" source="rf-dStarted" target="rf-dWallet">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e4" value="No (offline / free)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontStyle=1" edge="1" parent="rf1" source="rf-dWallet" target="rf-offline">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="rf1" source="rf-offline" target="rf-offlineEnd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e6" value="Yes (wallet-paid)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontStyle=1" edge="1" parent="rf1" source="rf-dWallet" target="rf-reason">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="rf1" source="rf-reason" target="rf-cancelSvc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="rf1" source="rf-cancelSvc" target="rf-notifyOrg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="rf1" source="rf-notifyOrg" target="rf-managePage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="rf1" source="rf-managePage" target="rf-dialog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e11" value="organizer decides" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontStyle=2" edge="1" parent="rf1" source="rf-dialog" target="rf-rpc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="rf1" source="rf-rpc" target="rf-notifyPlayer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="rf1" source="rf-notifyPlayer" target="rf-end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;dashed=1;strokeColor=#0e8088;" edge="1" parent="rf1" source="rf-cron" target="rf-cronFn">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;dashed=1;strokeColor=#0e8088;" edge="1" parent="rf1" source="rf-cronFn" target="rf-dCron">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e16" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontStyle=1" edge="1" parent="rf1" source="rf-dCron" target="rf-cronSkip">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rf-e17" value="Yes — FULL refund&#10;(system, decided_by = NULL)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontStyle=1;strokeColor=#0e8088;" edge="1" parent="rf1" source="rf-dCron" target="rf-rpc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
