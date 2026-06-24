@@ -1,0 +1,127 @@
+<mxGraphModel adaptiveColors="auto">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+
+    <mxCell id="hp" value="PLAYER — Upload Payment Proof" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+      <mxGeometry x="250" y="0" width="220" height="34" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n1" value="Booking confirmed&#xa;Payment PENDING (offline, unpaid)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="250" y="60" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n2" value="Player taps&#xa;&lt;b&gt;Upload Payment Proof&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="250" y="160" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="d1" value="Replacing an&#xa;existing proof?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+      <mxGeometry x="260" y="260" width="200" height="90" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n3" value="Confirm overwrite&#xa;(cannot be undone)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="560" y="275" width="200" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n4" value="Pick image from gallery&#xa;(compress 70%, max 10 MB)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="250" y="390" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n5" value="1. Get presigned S3 URL&#xa;POST /receipt/upload-url" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="250" y="490" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n6" value="2. Upload image to S3&#xa;(direct PUT to presigned URL)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="250" y="590" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n7" value="3. Confirm receipt with backend&#xa;PUT /bookings/{id}/receipt" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="250" y="690" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n8" value="Booking updated:&#xa;hasReceipt=true&#xa;paymentStatus still UNPAID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="250" y="790" width="220" height="70" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n9" value="Notify organiser&#xa;(payment_proof_uploaded)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="250" y="900" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n10" value="Player sees:&#xa;&quot;Pending organiser approval&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="250" y="1000" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="ho" value="ORGANISER — Approve Payment Proof" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+      <mxGeometry x="250" y="1100" width="220" height="34" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n11" value="Organiser sees&#xa;&quot;Pending Approval&quot; badge&#xa;(pendingApprovalCount &gt; 0)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="250" y="1160" width="220" height="70" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n12" value="Open Game Manage&#xa;&#8594; bookings list" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="250" y="1270" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n13" value="Tap receipt icon &#8594;&#xa;view proof (ReceiptViewerSheet,&#xa;presigned image URL)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="250" y="1370" width="220" height="70" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="d2" value="Payment received&#xa;&amp; valid?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+      <mxGeometry x="260" y="1480" width="200" height="90" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n14" value="No explicit reject:&#xa;do nothing&#xa;(player can re-upload)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+      <mxGeometry x="560" y="1490" width="200" height="70" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n15" value="Tap &lt;b&gt;Mark Paid&lt;/b&gt;&#xa;&#8594; confirm dialog&#xa;(&quot;cannot be undone&quot;)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="250" y="1600" width="220" height="70" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n16" value="PATCH .../payment-status&#xa;{ paid: true }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="250" y="1710" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n17" value="paymentStatus = PAID&#xa;pendingApprovalCount--&#xa;earnings/payout triggered" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="250" y="1810" width="220" height="70" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n18" value="Notify player&#xa;(payment_approved)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="250" y="1920" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n19" value="Player UI: &quot;Payment Approved&quot;&#xa;Receipt locked / view-only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="250" y="2020" width="220" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n20" value="Done" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="300" y="2120" width="120" height="50" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="e1" edge="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e2" edge="1" source="n2" target="d1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e3" value="Yes" edge="1" source="d1" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e4" value="No" edge="1" source="d1" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e5" edge="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e6" edge="1" source="n4" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e7" edge="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e8" edge="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e9" edge="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e10" edge="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e11" edge="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e12" value="handoff" edge="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#999999;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e13" edge="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e14" edge="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e15" edge="1" source="n13" target="d2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e16" value="No" edge="1" source="d2" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e17" value="Yes" edge="1" source="d2" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e18" value="re-upload" edge="1" source="n14" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#b85450;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e19" edge="1" source="n15" target="n16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e20" edge="1" source="n16" target="n17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e21" edge="1" source="n17" target="n18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e22" edge="1" source="n18" target="n19" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e23" edge="1" source="n19" target="n20" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+  </root>
+</mxGraphModel>
