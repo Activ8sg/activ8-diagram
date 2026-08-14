@@ -1,0 +1,228 @@
+<mxGraphModel adaptiveColors="auto">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+
+    <!-- ══════════ TITLE ══════════ -->
+    <mxCell id="title" value="REFUND — one function, two flows&#xa;&lt;i&gt;paymentsService.refundPayment() is the ONLY path that sends money back. Refunds are always IN FULL.&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=15;verticalAlign=middle;" vertex="1" parent="1">
+      <mxGeometry x="40" y="0" width="1520" height="50" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ BAND A — TRIGGERS ══════════ -->
+    <mxCell id="bandA" value="WHO CAN START A REFUND" style="text;html=1;fontStyle=1;fontSize=11;fontColor=#666666;align=left;" vertex="1" parent="1">
+      <mxGeometry x="40" y="70" width="400" height="20" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="t1" value="&lt;b&gt;Player cancels booking&lt;/b&gt;&#xa;games/service cancelBooking&#xa;DELETE /bookings/:id" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="40" y="95" width="340" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="t2" value="&lt;b&gt;Organiser cancels game&lt;/b&gt;&#xa;games/service deleteGame&#xa;refunds EVERY confirmed booking" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="420" y="95" width="340" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="t3" value="&lt;b&gt;Admin — portal&lt;/b&gt;&#xa;POST /admin/payments/:id/refund&#xa;also: remove player from game" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="800" y="95" width="340" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="t4" value="&lt;b&gt;System — AC-252&lt;/b&gt;&#xa;paid, but the game was already full&#xa;automatic, no human involved" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="1180" y="95" width="340" height="70" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ BAND B — CUTOFF GUARD ══════════ -->
+    <mxCell id="cut" value="Inside the&#xa;&lt;b&gt;cancellation cutoff&lt;/b&gt;?&#xa;(admin_config, default 2h)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+      <mxGeometry x="255" y="215" width="290" height="110" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="cutnote" value="&lt;b&gt;player_cancel_cutoff_hours&lt;/b&gt; · &lt;b&gt;organiser_cancel_cutoff_hours&lt;/b&gt;&#xa;Same rule for BOTH flows — the cutoff does not care who sells the game.&#xa;0 disables it. Set in admin_config, so it retunes without a deploy." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;dashed=1;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="600" y="230" width="420" height="80" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="bypass" value="&lt;b&gt;No cutoff on these paths.&lt;/b&gt;&#xa;An admin must be able to cancel a flooded court an hour out, and AC-252 is the&#xa;system correcting itself. Both are audited. This is also the ONLY way a refund&#xa;can reach the danger window at the bottom of the Flow 2 column." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;dashed=1;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="1060" y="215" width="460" height="110" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="reject" value="&lt;b&gt;CANCELLATION_WINDOW_CLOSED&lt;/b&gt;&#xa;Nothing moves. The app shows the server's&#xa;sentence, and the deadline was already on&#xa;the booking before this point." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="40" y="375" width="340" height="90" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ BAND C — THE ONE FUNCTION ══════════ -->
+    <mxCell id="fn" value="&lt;b&gt;refundPayment(paymentId, { reason })&lt;/b&gt;&#xa;plugins/payments/service.js" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;" vertex="1" parent="1">
+      <mxGeometry x="580" y="400" width="440" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="guards" value="status must be &lt;b&gt;succeeded&lt;/b&gt; (or legacy &lt;b&gt;partially_refunded&lt;/b&gt;, so rows left by&#xa;the old partial path are still refundable for the remainder) → else NOT_REFUNDABLE&#xa;refundAmount = amount − refunded_amount; if ≤ 0 → ALREADY_REFUNDED&#xa;&lt;b&gt;always the full outstanding balance — there is no partial refund&lt;/b&gt;&#xa;idempotencyKey = `refund:${paymentId}`  ← retry-safe because it is full-only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="580" y="500" width="440" height="110" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="mode" value="&lt;b&gt;payment_mode?&lt;/b&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+      <mxGeometry x="675" y="640" width="250" height="90" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ FLOW 1 COLUMN ══════════ -->
+    <mxCell id="f1hdr" value="FLOW 1 — activ8_seller   ·   Activ8 is the principal" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+      <mxGeometry x="80" y="800" width="560" height="40" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f1a" value="&lt;b&gt;What the charge left behind&lt;/b&gt;&#xa;Direct charge on the Activ8 Stripe account.&#xa;No transfer_data, no on_behalf_of, no application fee.&#xa;100% of the ticket is in OUR balance. PayNow + card." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="80" y="870" width="560" height="90" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f1b" value="&lt;b&gt;stripe.refunds.create({ payment_intent, amount, reason })&lt;/b&gt;&#xa;refundApplicationFee: &lt;b&gt;false&lt;/b&gt;      reverseTransfer: &lt;b&gt;false&lt;/b&gt;&#xa;Nothing else. No second leg, no connected account touched." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="80" y="990" width="560" height="80" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f1money" value="&lt;b&gt;MONEY&lt;/b&gt;&#xa;&#xa;Activ8 Stripe balance   ─────────►   Player&#xa;&#xa;Out of the same balance it landed in." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="80" y="1100" width="560" height="110" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f1c" value="&lt;b&gt;ONE movement — cannot half-succeed.&lt;/b&gt;&#xa;There is no transfer to reverse, so the drained-balance and negative-balance&#xa;failures on the right are structurally impossible here.&#xa;&#xa;&lt;b&gt;The Flow 1 exposure nobody's code owns:&lt;/b&gt; whoever RAN the session is paid as a&#xa;supplier out of band. This path never touches that. Refund a player after we have&#xa;already settled with the supplier and nothing in the system notices." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="80" y="1240" width="560" height="130" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ FLOW 2 COLUMN ══════════ -->
+    <mxCell id="f2hdr" value="FLOW 2 — organiser_seller   ·   the organiser is the principal, we are their agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+      <mxGeometry x="960" y="800" width="560" height="40" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f2a" value="&lt;b&gt;What the charge left behind&lt;/b&gt;&#xa;Destination charge: transfer_data.destination + on_behalf_of = organiser.&#xa;The money SPLIT AT CHARGE TIME — the organiser's share has been sitting in&#xa;THEIR Stripe balance since the player paid. PayNow only (no card disputes)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="960" y="870" width="560" height="90" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f2b" value="&lt;b&gt;stripe.refunds.create({ ... })&lt;/b&gt;&#xa;refundApplicationFee: &lt;b&gt;true&lt;/b&gt;   → our commission goes back too&#xa;reverseTransfer: &lt;b&gt;true&lt;/b&gt;        → claws the organiser's share back&#xa;&lt;i&gt;Never separable. A Stripe refund does NOT touch the associated transfer.&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="960" y="990" width="560" height="80" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f2money" value="&lt;b&gt;MONEY&lt;/b&gt;&#xa;&#xa;Organiser Stripe balance ──(transfer reversal)──►  Activ8&#xa;Activ8 Stripe balance    ──(refund + fee back)───►  Player&#xa;&#xa;Player gets 100%. Organiser back to zero. Activ8 back to zero." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="960" y="1100" width="560" height="110" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f2danger" value="Has the organiser&#xa;&lt;b&gt;already been paid out&lt;/b&gt;&#xa;to their bank?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+      <mxGeometry x="1095" y="1250" width="290" height="120" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f2ok" value="&lt;b&gt;CLEAN&lt;/b&gt;&#xa;Their balance still holds it.&#xa;The reversal simply takes it back.&#xa;Booking → cancelled, drops out&#xa;of the payout query." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="960" y="1440" width="270" height="120" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f2bad" value="&lt;b&gt;NEGATIVE BALANCE&lt;/b&gt;&#xa;Money already left for their bank.&#xa;Stripe honours the reversal by driving&#xa;the connected account negative and&#xa;recovers from future earnings.&#xa;&lt;b&gt;An SG bank cannot be debited.&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="1250" y="1440" width="270" height="120" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="f2ledger" value="&lt;b&gt;organiser_payout_reversals&lt;/b&gt; row written  (migration 155)&#xa;A LEDGER, not a mechanism — Stripe already moved the money. This exists so the&#xa;movement is attributable afterwards. Rows should be RARE; if this table fills up,&#xa;the cutoffs or payout_buffer_hours are mistuned. The portal warns before the button." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;dashed=1;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="960" y="1600" width="560" height="100" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ SHARED — ASYNC CONFIRMATION ══════════ -->
+    <mxCell id="asynchdr" value="BOTH FLOWS — the refund is not done when the call returns" style="text;html=1;fontStyle=1;fontSize=11;fontColor=#666666;align=left;" vertex="1" parent="1">
+      <mxGeometry x="80" y="1790" width="600" height="20" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="pending" value="returns &lt;b&gt;{ refundedAmount, status: 'pending_confirmation' }&lt;/b&gt;&#xa;The payments row is deliberately NOT written here.&#xa;A returned Refund object is a REQUEST, not a delivery." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="80" y="1820" width="480" height="90" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="hooks" value="&lt;b&gt;charge.refunded · refund.updated · refund.failed&lt;/b&gt;&#xa;→ _syncPaymentFromStripe re-reads the PaymentIntent over TLS&#xa;→ writes payments.refunded_amount&#xa;&lt;i&gt;The webhook payload is never trusted beyond the id.&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="640" y="1820" width="480" height="90" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="paynow" value="&lt;b&gt;PayNow refunds are ASYNC and CAN FAIL.&lt;/b&gt;&#xa;On failure Stripe returns the money to our&#xa;balance and the player is still out of pocket.&#xa;It surfaces as refunded_amount going back DOWN." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="1200" y="1820" width="320" height="90" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="seat" value="&lt;b&gt;Seat release&lt;/b&gt; — fn_release_booking(p_refunded: true). A confirmed booking cannot be released without stating what happened to the money;&#xa;&quot;we refunded it&quot; and &quot;we kept it&quot; (forfeit, admin removal) are both valid answers, and nothing else is. Refund happens BEFORE release, always." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="80" y="1950" width="1440" height="60" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ FLOW 2 TIMELINE ══════════ -->
+    <mxCell id="tlhdr" value="FLOW 2 — WHY THE TIMING RULES EXIST&#xa;&lt;i&gt;The refund window and the payout window must never overlap.&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+      <mxGeometry x="40" y="2080" width="1520" height="50" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="tl1" value="&lt;b&gt;Player pays&lt;/b&gt;&#xa;money splits immediately&#xa;organiser's share → their&#xa;Stripe balance (frozen)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="40" y="2160" width="280" height="90" as="geometry"/>
+    </mxCell>
+    <mxCell id="tl2" value="&lt;b&gt;− 2 h&lt;/b&gt;&#xa;cancellation cutoff&#xa;last routine refund&#xa;(player &amp; organiser)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="350" y="2160" width="280" height="90" as="geometry"/>
+    </mxCell>
+    <mxCell id="tl3" value="&lt;b&gt;GAME&lt;/b&gt;&#xa;played&#xa;→ status: completed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="660" y="2160" width="280" height="90" as="geometry"/>
+    </mxCell>
+    <mxCell id="tl4" value="&lt;b&gt;+ 24 h&lt;/b&gt;&#xa;payout_buffer_hours&#xa;the no-show reporting window&#xa;— last cheap moment to fix" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="970" y="2160" width="280" height="90" as="geometry"/>
+    </mxCell>
+    <mxCell id="tl5" value="&lt;b&gt;PAYOUT&lt;/b&gt;&#xa;releaseDueEarnings&#xa;organiser's Stripe balance&#xa;→ their BANK" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="1280" y="2160" width="280" height="90" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="safebar" value="REFUND IS SAFE — the organiser's share is still reachable in their Stripe balance   ·   gap ≈ game duration + 26 h" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="40" y="2290" width="1210" height="45" as="geometry"/>
+    </mxCell>
+    <mxCell id="dangerbar" value="DANGER — nothing left to claw back" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="1280" y="2290" width="280" height="45" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="tlnote" value="&lt;b&gt;The rule the whole design serves:&lt;/b&gt;  refunds must be finished before the organiser's money leaves for their bank.&#xa;The cancellation cutoff and the payout buffer are the two halves of that guarantee. Only a path with no cutoff — an admin refund, or an admin&#xa;removing a player from a finished game — can land on the right of the payout, and that is exactly what the reversal ledger records.&#xa;&#xa;&lt;b&gt;At 0% commission there is no margin to absorb it:&lt;/b&gt; the organiser received 100% of the ticket, so 100% must come back out of their account." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;align=left;spacingLeft=12;" vertex="1" parent="1">
+      <mxGeometry x="40" y="2365" width="1520" height="110" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ LEGEND ══════════ -->
+    <mxCell id="lg" value="LEGEND" style="text;html=1;fontStyle=1;fontSize=11;fontColor=#666666;align=left;" vertex="1" parent="1">
+      <mxGeometry x="40" y="2510" width="200" height="20" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg1" value="player action" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="40" y="2535" width="140" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg2" value="admin / system" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="195" y="2535" width="140" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg3" value="decision" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="350" y="2535" width="140" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg4" value="backend / DB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="505" y="2535" width="140" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg5" value="safe / done" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="660" y="2535" width="140" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg6" value="failure / risk" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="815" y="2535" width="140" height="30" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ EDGES ══════════ -->
+    <mxCell id="e1" edge="1" source="t1" target="cut" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e2" edge="1" source="t2" target="cut" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e3" value="yes" edge="1" source="cut" target="reject" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#b85450;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e4" value="no" edge="1" source="cut" target="fn" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e5" value="bypasses cutoff" edge="1" source="t3" target="fn" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d79b00;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e6" value="bypasses cutoff" edge="1" source="t4" target="fn" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d79b00;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="e7" edge="1" source="fn" target="guards" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e8" edge="1" source="guards" target="mode" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="e9" value="activ8_seller" edge="1" source="mode" target="f1hdr" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#82b366;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e10" value="organiser_seller" edge="1" source="mode" target="f2hdr" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c8ebf;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="e11" edge="1" source="f1hdr" target="f1a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e12" edge="1" source="f1a" target="f1b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e13" edge="1" source="f1b" target="f1money" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e14" edge="1" source="f1money" target="f1c" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="e15" edge="1" source="f2hdr" target="f2a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e16" edge="1" source="f2a" target="f2b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e17" edge="1" source="f2b" target="f2money" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e18" edge="1" source="f2money" target="f2danger" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e19" value="no — the normal case" edge="1" source="f2danger" target="f2ok" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#82b366;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e20" value="yes" edge="1" source="f2danger" target="f2bad" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#b85450;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e21" edge="1" source="f2bad" target="f2ledger" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#b85450;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="e22" edge="1" source="f1c" target="pending" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#999999;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e23" edge="1" source="f2ok" target="pending" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#999999;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e24" edge="1" source="pending" target="hooks" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e25" edge="1" source="hooks" target="paynow" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#b85450;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e26" edge="1" source="hooks" target="seat" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="e27" edge="1" source="tl1" target="tl2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e28" edge="1" source="tl2" target="tl3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e29" edge="1" source="tl3" target="tl4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e30" edge="1" source="tl4" target="tl5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+  </root>
+</mxGraphModel>

@@ -1,0 +1,161 @@
+<mxGraphModel adaptiveColors="auto">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+
+    <!-- ══════════ TITLE ══════════ -->
+    <mxCell id="title" value="BOOKING STATE MACHINE&#xa;&lt;i&gt;Verified against migrations 146 / 149a / 152, plugins/games + plugins/payments, and the live bookings CHECK constraints.&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=15;" vertex="1" parent="1">
+      <mxGeometry x="40" y="0" width="1560" height="50" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="sameflow" value="&lt;b&gt;THE STATE MACHINE IS IDENTICAL FOR FLOW 1 AND FLOW 2.&lt;/b&gt;  `payment_mode` changes what Stripe is asked to do, not what the booking row does.&#xa;Nothing in fn_reserve_booking, fn_confirm_booking_paid, fn_expire_reservations or fn_release_booking branches on it. The per-flow differences are listed at the bottom." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=left;spacingLeft=12;" vertex="1" parent="1">
+      <mxGeometry x="40" y="65" width="1560" height="60" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ ENTRY ══════════ -->
+    <mxCell id="entry1" value="&lt;b&gt;POST /bookings&lt;/b&gt;&#xa;games/service createBooking&#xa;→ voucher reserved first, then…&#xa;&lt;b&gt;rpc fn_reserve_booking&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="580" y="180" width="280" height="100" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="rejects" value="&lt;b&gt;fn_reserve_booking refuses&lt;/b&gt;  (all under the game row lock)&#xa;INVALID_SPOTS · NOT_FOUND · GAME_NOT_AVAILABLE (status ≠ published)&#xa;FORBIDDEN (own game) · NOT_PAYABLE (listing_only) · ALREADY_BOOKED&#xa;NOT_COMMUNITY_MEMBER · INSUFFICIENT_SLOTS (pool, then max_slots)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="960" y="175" width="480" height="110" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="entry2" value="&lt;b&gt;ADMIN — add player (comp)&lt;/b&gt;&#xa;admin/games addPlayer&#xa;&lt;b&gt;rpc fn_comp_booking&lt;/b&gt;&#xa;lands STRAIGHT in confirmed / free&#xa;&lt;i&gt;no payment, no points&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="120" y="175" width="280" height="110" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ STATES ══════════ -->
+    <mxCell id="hdrstates" value="STATES — the five values bookings.status actually takes" style="text;html=1;fontStyle=1;fontSize=11;fontColor=#666666;align=left;" vertex="1" parent="1">
+      <mxGeometry x="120" y="330" width="600" height="20" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="s_reserved" value="&lt;b&gt;reserved&lt;/b&gt;&#xa;payment_status: unpaid&#xa;(or &lt;b&gt;free&lt;/b&gt; if payable ≤ 0)&#xa;reserved_until = now + 15 min" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry x="580" y="370" width="280" height="100" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="s_pending" value="&lt;b&gt;pending_payment&lt;/b&gt;&#xa;payment_status: pending&#xa;&lt;i&gt;set by payments/service when the&#xa;PaymentIntent is created&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry x="580" y="550" width="280" height="100" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="s_confirmed" value="&lt;b&gt;confirmed&lt;/b&gt;&#xa;payment_status: paid  (free if comp)&#xa;reserved_until → NULL&#xa;+ confirmed_payment_id, confirmed_at&#xa;+ game_participants row, + points" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry x="580" y="760" width="280" height="110" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="s_expired" value="&lt;b&gt;expired&lt;/b&gt;&#xa;payment_status: unpaid&#xa;(kept as paid if it was)&#xa;released_at set&#xa;&lt;i&gt;voucher use handed back&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry x="140" y="460" width="260" height="110" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="s_cancelled" value="&lt;b&gt;cancelled&lt;/b&gt;&#xa;payment_status ← see matrix below&#xa;cancelled_at, released_at,&#xa;cancellation_reason set&#xa;&lt;i&gt;voucher use handed back&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry x="1080" y="760" width="280" height="110" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ TRANSITION LABELS / SIDE NOTES ══════════ -->
+    <mxCell id="n_intent" value="&lt;b&gt;POST /payments/booking/:id&lt;/b&gt;&#xa;createPaymentForBooking&#xa;Idempotent — reuses a live intent rather&#xa;than minting a second QR.&#xa;&lt;b&gt;Refuses if reserved_until has passed&lt;/b&gt;&#xa;(RESERVATION_EXPIRED)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="960" y="530" width="330" height="120" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n_webhook" value="&lt;b&gt;Stripe webhook ONLY&lt;/b&gt;&#xa;payment_intent.succeeded → _syncPaymentFromStripe&#xa;→ &lt;b&gt;rpc fn_confirm_booking_paid&lt;/b&gt;&#xa;&#xa;Idempotent by construction. Re-confirming with the SAME&#xa;payment returns already=true; a DIFFERENT payment returns&#xa;ALREADY_CONFIRMED_BY_ANOTHER_PAYMENT so the caller refunds&#xa;the double charge.&#xa;&#xa;&lt;i&gt;Nothing else in the codebase writes status='confirmed'.&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="120" y="640" width="400" height="180" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n_expire" value="&lt;b&gt;cron every 2 min&lt;/b&gt; — fn_expire_reservations, reserved_until ≤ now()&#xa;&lt;i&gt;Housekeeping, NOT correctness: capacity is counted time-aware, so a lapsed&#xa;hold stopped occupying its seat whether or not this ran. The webhook always&#xa;wins the race — the UPDATE re-checks status IN (reserved, pending_payment).&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=left;spacingLeft=10;dashed=1;" vertex="1" parent="1">
+      <mxGeometry x="60" y="290" width="440" height="90" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n_release" value="&lt;b&gt;rpc fn_release_booking(p_refunded, p_forfeited)&lt;/b&gt;&#xa;player cancels · organiser cancels game · admin refund · admin removes player&#xa;&#xa;&lt;b&gt;GUARD:&lt;/b&gt; status='confirmed' AND NOT (p_refunded OR p_forfeited)&#xa;→ &lt;b&gt;CONFIRMED_REQUIRES_REFUND&lt;/b&gt;, nothing changes.&#xa;A paid seat cannot be dropped without stating what happened to the money.&#xa;&#xa;Already expired/cancelled → released=true, already=true (no-op)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="1080" y="380" width="460" height="150" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="n_ac252" value="&lt;b&gt;AC-252 — LATE PAYMENT RESURRECTION&lt;/b&gt;&#xa;The PayNow QR outlives the 15-minute hold by design, so a player can pay after&#xa;the seat was released. fn_confirm_booking_paid explicitly handles&#xa;status IN ('expired','cancelled') — it re-checks capacity under the game lock:&#xa;&#xa;  fits    → reinstated to &lt;b&gt;confirmed&lt;/b&gt;&#xa;  full    → &lt;b&gt;GAME_FULL_REFUND_REQUIRED&lt;/b&gt; → caller refunds in full.&#xa;            We will not oversell to rescue a late payment." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="120" y="900" width="440" height="150" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ SEAT PREDICATE ══════════ -->
+    <mxCell id="predicate" value="&lt;b&gt;THE SEAT-HOLDING PREDICATE&lt;/b&gt; — repeated in every capacity count in migration 146, and the single most important expression in the epic:&#xa;&#xa;        status = 'confirmed'   OR   ( status IN ('reserved','pending_payment')  AND  reserved_until &gt; now() )&#xa;&#xa;Time-aware on purpose: an expired hold stops consuming capacity the moment it lapses, with no job needing to have run. This is why the expiry cron is&#xa;housekeeping rather than correctness, and why 'expired' rows can sit around harmlessly." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=left;spacingLeft=12;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry x="40" y="1100" width="1560" height="130" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ PAYMENT_STATUS MATRIX ══════════ -->
+    <mxCell id="mhdr" value="payment_status ON RELEASE — four end states, kept distinct on purpose (migration 152)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="40" y="1270" width="760" height="35" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="m1" value="was &lt;b&gt;free&lt;/b&gt;&#xa;→ stays &lt;b&gt;free&lt;/b&gt;&#xa;the seat never cost anything" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="40" y="1315" width="185" height="90" as="geometry"/>
+    </mxCell>
+    <mxCell id="m2" value="p_refunded&#xa;→ &lt;b&gt;refunded&lt;/b&gt;&#xa;refund_status=approved&#xa;refund_amount=total−discount" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="235" y="1315" width="185" height="90" as="geometry"/>
+    </mxCell>
+    <mxCell id="m3" value="p_forfeited&#xa;→ stays &lt;b&gt;paid&lt;/b&gt;&#xa;refund_status=denied, amount=0&#xa;no-show / misconduct" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="430" y="1315" width="185" height="90" as="geometry"/>
+    </mxCell>
+    <mxCell id="m4" value="neither&#xa;→ &lt;b&gt;unpaid&lt;/b&gt;&#xa;a hold that lapsed without&#xa;ever being paid" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="625" y="1315" width="185" height="90" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ FLOW DIFFERENCES ══════════ -->
+    <mxCell id="fhdr" value="WHERE FLOW 1 AND FLOW 2 ACTUALLY DIFFER — none of it is in the booking state" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="840" y="1270" width="760" height="35" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="fl1" value="&lt;b&gt;FLOW 1 — activ8_seller&lt;/b&gt;&#xa;· payment_method_types: &lt;b&gt;paynow + card&lt;/b&gt;&#xa;· direct charge on the Activ8 account&#xa;· no extra rejections at payment time&#xa;· booking row never carries organiser_payout_id" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="840" y="1315" width="370" height="120" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="fl2" value="&lt;b&gt;FLOW 2 — organiser_seller&lt;/b&gt;&#xa;· payment_method_types: &lt;b&gt;paynow only&lt;/b&gt;&#xa;· destination charge + application_fee_amount&#xa;· extra refusals: &lt;b&gt;PATH_B_DISABLED&lt;/b&gt; (flag off),&#xa;  &lt;b&gt;ORGANISER_CANNOT_ACCEPT&lt;/b&gt; (not onboarded)&#xa;· once CONFIRMED, releaseDueEarnings may claim the&#xa;  row by setting &lt;b&gt;organiser_payout_id&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+      <mxGeometry x="1230" y="1315" width="370" height="120" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ NOT REACHABLE ══════════ -->
+    <mxCell id="unreach" value="&lt;b&gt;IN THE CHECK CONSTRAINT BUT NEVER WRITTEN BY CURRENT CODE&lt;/b&gt; — do not model these as live states.&#xa;&#xa;status &lt;b&gt;'removed'&lt;/b&gt;  — allowed by bookings_status_check; the only reference in src/ is a `.neq('status','removed')` filter. Admin &quot;remove player&quot; goes through&#xa;                     fn_release_booking and lands in &lt;b&gt;cancelled&lt;/b&gt;, not 'removed'. Legacy.&#xa;payment_status &lt;b&gt;'failed'&lt;/b&gt;, &lt;b&gt;'partial_refund'&lt;/b&gt;, &lt;b&gt;'no_refund'&lt;/b&gt;  — only ever written by the wallet-era functions in migrations 082 / 113 / 119.&#xa;                     fn_release_booking (152) writes none of them.&#xa;&lt;b&gt;fn_create_booking&lt;/b&gt; (the wallet path) still exists in the database but has &lt;b&gt;zero callers in src/&lt;/b&gt;. Unreachable from the API." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=11;align=left;spacingLeft=12;dashed=1;" vertex="1" parent="1">
+      <mxGeometry x="40" y="1475" width="1560" height="130" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ THE DEAD END ══════════ -->
+    <mxCell id="deadend" value="&lt;b&gt;⚠ A REACHABLE DEAD END — a fully-discounted booking can never confirm&lt;/b&gt;&#xa;&#xa;vouchers/service _discountFor supports discount_type &lt;b&gt;'free'&lt;/b&gt; (discount = originalAmount), and clamps every type with Math.min(discount, originalAmount).&#xa;So payable can legitimately reach 0. fn_reserve_booking then writes &lt;b&gt;status='reserved', payment_status='free'&lt;/b&gt;.&#xa;&#xa;But createPaymentForBooking refuses amount ≤ 0 with &lt;b&gt;NOTHING_TO_PAY&lt;/b&gt;, and the only two paths that write status='confirmed' are&#xa;fn_confirm_booking_paid (requires a SUCCEEDED payments row) and fn_comp_booking (admin only).&#xa;&#xa;⇒ The hold sits at 'reserved' until the 15-minute expiry cron moves it to &lt;b&gt;expired&lt;/b&gt;. The voucher use is handed back, so nothing is lost —&#xa;   but the player cannot complete the booking. NOT DRAWN AS A HAPPY PATH BECAUSE IT IS NOT ONE." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=left;spacingLeft=12;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry x="40" y="1645" width="1560" height="165" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ LEGEND ══════════ -->
+    <mxCell id="lg" value="LEGEND" style="text;html=1;fontStyle=1;fontSize=11;fontColor=#666666;align=left;" vertex="1" parent="1">
+      <mxGeometry x="40" y="1850" width="200" height="20" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg1" value="holding a seat" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="40" y="1875" width="150" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg2" value="booked / final good" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="205" y="1875" width="150" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg3" value="terminal / released" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="370" y="1875" width="150" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg4" value="player action / API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="535" y="1875" width="150" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg5" value="admin / system" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="700" y="1875" width="150" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="lg6" value="refused / risk" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="865" y="1875" width="150" height="30" as="geometry"/>
+    </mxCell>
+
+    <!-- ══════════ EDGES ══════════ -->
+    <mxCell id="e_in1" edge="1" source="entry1" target="s_reserved" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e_rej" value="refused" edge="1" source="entry1" target="rejects" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#b85450;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e_in2" value="comp — straight to confirmed" edge="1" source="entry2" target="s_confirmed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d79b00;dashed=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="e_r2p" value="PaymentIntent created" edge="1" source="s_reserved" target="s_pending" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e_p2c" value="webhook: payment succeeded" edge="1" source="s_pending" target="s_confirmed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#82b366;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="e_r2e" value="hold lapses" edge="1" source="s_reserved" target="s_expired" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#9673a6;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e_p2e" value="hold lapses" edge="1" source="s_pending" target="s_expired" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#9673a6;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="e_r2x" value="release" edge="1" source="s_reserved" target="s_cancelled" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#9673a6;dashed=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e_c2x" value="release&#xa;(needs refunded OR forfeited)" edge="1" source="s_confirmed" target="s_cancelled" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#9673a6;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="e_e2c" value="AC-252 late payment&#xa;(if capacity allows)" edge="1" source="s_expired" target="s_confirmed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d79b00;dashed=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e_x2c" value="AC-252 late payment" edge="1" source="s_cancelled" target="s_confirmed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d79b00;dashed=1;" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+  </root>
+</mxGraphModel>

@@ -55,14 +55,73 @@ A new `config JSONB` column on `profiles` (migration `102`) controls **how much*
   "payout": {
     "advance": "full",          // "full" = 100% upfront | "percentage" = split
     "advancePercentage": 60,     // used when advance = "percentage"
-    "delayDays": 3               // optional per-organizer override of the global X
+    "delayDays": 3,              // optional per-organizer override of the global X
+    "paused": false,             // temporary OFF switch (migration 115)
+    "pausedUntil": null          // optional auto-resume instant (ISO); null = until an admin lifts it
   }
 }
 ```
 
 - Global default delay `X` → `admin_config.instant_payout_delay_days`.
-- Empty `config` (`{}`) + trusted ⇒ sane defaults (treat as `full`, global `X`).
+- Empty `config` (`{}`) + trusted ⇒ sane defaults (treat as `full`, global `X`, not paused).
 - `config` is a generic settings bag — future organizer settings go here, no schema churn.
+
+### Pause (migration `115`)
+
+`paused` is the temporary OFF switch for the auto-transfer — the lever to use when the
+answer isn't "pay later" but "don't pay for now" (disputed game, fraud check, cash-flow
+freeze). It is deliberately **not** `is_trusted = false`, which would silently flip every
+future game to escrow.
+
+- Paused = `paused === true` AND (`pausedUntil` absent OR still in the future) —
+  `fn_payout_is_paused(config)`; an elapsed `pausedUntil` auto-resumes with no admin write.
+- New games still snapshot `payout_type = 'instant'`, so **players' money keeps being
+  collected by the app** and is still not credited to the organizer. Only the outbound leg
+  stops.
+- Advances and percentage remainders queue up. Whatever is still queued when the pause
+  lifts is paid by the first sweep, honouring the original `delayDays` cutoffs — so a game
+  paid by bank transfer in the meantime **must** be recorded (see §3b) or it is paid twice.
+- Enforced at the leaf functions (`fn_pay_game_advance`, `fn_settle_instant_game` → reason
+  `PAUSED`), so the cron sweeps, the lazy on-read fallback and manual RPC calls all obey it.
+- Admin UI: Users → user → Payout tab → "Pause auto-transfer" (+ optional resume date).
+  API: `PATCH /admin/users/:userId/payout-config` `{ paused, pausedUntil }`, audited as
+  `user.payout_pause` / `user.payout_resume`.
+- The organizer's earnings forecast shows the queued amounts with `onHold: true` and a null
+  `payoutDate` instead of a date it cannot promise.
+
+### 3b. Offline settlement (migration `116`)
+
+The reason to pause is usually **"pay this organizer by hand, outside the app"** — we still
+collect from players in-app (which is what caps our exposure when an organizer cancels a
+game), but the money to the organizer goes out by bank transfer so it never becomes
+cashable wallet balance.
+
+```
+pause organizer ─▶ they keep posting (payout_type still 'instant', players still pay in-app)
+we bank-transfer ─▶ outside the app entirely
+record it here  ─▶ game closed for payout, wallet/earnings untouched
+```
+
+`instant_offline_payouts` (game_id, organizer_id, amount, reference, note, recorded_by,
+paid_at) is the record. `fn_mark_game_advance_offline(game, amount?, admin?, ref?, note?)`:
+
+- stamps `advance_paid_at` + `advance_settled_at` so **no sweep ever pays that game**,
+- leaves `advance_amount = 0` — nothing entered the wallet, nothing is cashable, the
+  organizer never sees it as earnings,
+- defaults `amount` to what the app *would* have advanced (capacity, or the percentage),
+- refuses with `ALREADY_PAID_IN_APP` if the wallet advance already went out,
+- allows several tranches per game; `fn_unmark_game_advance_offline` undoes a mis-entry
+  (safe — there is no wallet credit to claw back).
+
+Deliberately **not** a `wallet_transaction`: that ledger is the organizer's in-app money.
+Offline cash is folded into `v_instant_payout_pnl` instead — `paid_offline` plus its share
+of `advanced_to_organizer` — so per-game P&L stays honest.
+
+- Admin UI: **Payouts → "Instant — unpaid"** lists every instant game still owing, with
+  what we owe vs what players have already paid us, and a "Mark paid offline" action.
+- API: `GET /admin/payouts/instant-held[?organizerId=]`,
+  `POST|DELETE /admin/payouts/games/:gameId/offline`, audited as `payout.offline_record` /
+  `payout.offline_revert`.
 
 ---
 
